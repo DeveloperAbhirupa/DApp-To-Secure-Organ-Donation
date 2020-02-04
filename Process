@@ -1,2 +1,5 @@
 1. Install all dependencies like npm, truffle, ganache
-2. Doenload metamask extension
+2. Download metamask extension.
+3. Choose a suitable IDE to compile your solidity code on
+4. Install Ganache and have a local blockchain running.
+4. Perform a smoke test.
