@@ -6,3 +6,13 @@
 6. Configure truffle to interact with Ganache
 7. Launch truffle console and fetch data from 10 free ether accounts in Ganache
 4. Perform a smoke test.
+
+Download all extensions- Extension Requirements.txt will be put up after project completion
+
+Migrate to folder: Run command:
+
+>>>truffle migrate
+>>>truffle console
+>>>donations.deployed().then(function(instance) { app = instance })
+>>>app.<attribute> to get value
+

@@ -1,0 +1,9 @@
+Variables:
+
+Donor: (String)
+donor id: random generated hashcode (String unique id)
+organ id: random generated hashcode (String unique id)
+organ type: String
+blood group of donor: String
+Status: (not yet donted-0/only donated-1/implanted-2)
+hospital id: random generated hashcode (String unique id)
