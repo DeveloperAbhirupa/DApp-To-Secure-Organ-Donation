@@ -6,7 +6,7 @@ contract donations {
   event createDonor(string name, uint did, string msg);
 
   struct donor{
-    string donor;//Donor name;
+    string donr;//Donor name;
     uint donor_id; // random generated hashcode (String unique id)
     uint organ_id;//random generated hashcode (String unique id)
     string organ; //Type of organ
