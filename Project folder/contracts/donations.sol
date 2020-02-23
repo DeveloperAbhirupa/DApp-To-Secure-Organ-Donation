@@ -7,12 +7,12 @@ contract donations {
 
   struct donor{
     string donor;//Donor name;
-    string donor_id; // random generated hashcode (String unique id)
-    string organ_id;//random generated hashcode (String unique id)
+    uint donor_id; // random generated hashcode (String unique id)
+    uint organ_id;//random generated hashcode (String unique id)
     string organ; //Type of organ
     string bg; //Donor blood group
     uint status; //(not yet donted-0/only donated-1/implanted-2)
-    uint hosp_id;  //random generated hashcode (String unique id)
+    address hosp_id;  //random generated hashcode (String unique id)
   }
 
   donor[] public donorArray;
@@ -22,13 +22,13 @@ contract donations {
   Thus it's good practice to mark your functions as private by default, and then only make public the
   functions you want to expose to the world.**/
 
-  function _initDonor(string memory _donor, string memory _organ, string memory _bg, uint _status, uint _hosp_id ) private
+  function _initDonor(string memory _donor, string memory _organ, string memory _bg , uint _status) private
   {
     //Note: Memory keyword denotes call by value for String
-    string did = _generateRandomID(_donor);
-    string oid = _generateRandomID(_organ);
-    uint length = donorArray.push(donor(_donor, did, oid,_organ,_bg,_status,_hosp_id))- 1;
-    string msg = "Donor has been succesfully created.";
+    uint did = _generateRandomID(_donor);
+    uint oid = _generateRandomID(_organ);
+    uint length = donorArray.push(donor(_donor, did, oid,_organ,_bg,_status, msg.sender))- 1;
+    string memory msg = "Donor has been succesfully created.";
     emit createDonor(_donor, did, msg);
 
   }
@@ -40,6 +40,7 @@ contract donations {
       return rand % 10;
    }
 
+   //We are going to set the ownership of the organ to the hospital the current hospital or associated donation bank
 
   //Module wise division:
   /**1. Hospital requests for creation of a block of data
