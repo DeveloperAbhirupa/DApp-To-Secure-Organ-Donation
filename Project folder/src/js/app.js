@@ -37,7 +37,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
     var electionInstance;
     var loader = $("#loader");
     var content = $("#content");
-
++
     loader.show();
     content.hide();
 
@@ -52,7 +52,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
     // Load contract data
     App.contracts.donations.deployed().then(function(instance) {
       donationInstance = instance;
-      return electionInstance.candidatesCount();
+      return donationInstance.candidatesCount();
     }).then(function(candidatesCount) {
       var candidatesResults = $("#candidatesResults");
       candidatesResults.empty();
