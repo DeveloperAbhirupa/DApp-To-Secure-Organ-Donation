@@ -34,10 +34,10 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
   },
 
   render: function() {
-    var electionInstance;
+    var donationsInstance;
     var loader = $("#loader");
     var content = $("#content");
-+
+
     loader.show();
     content.hide();
 
@@ -51,23 +51,16 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
 
     // Load contract data
     App.contracts.donations.deployed().then(function(instance) {
-      donationInstance = instance;
-      return donationInstance.candidatesCount();
-    }).then(function(candidatesCount) {
-      var candidatesResults = $("#candidatesResults");
-      candidatesResults.empty();
+      donationsInstance = instance;
+      return donationsInstance.length;
+    }).then(function(l) {
+      var info = $("#info");
 
-      for (var i = 1; i <= candidatesCount; i++) {
-        electionInstance.candidates(i).then(function(candidate) {
-          var id = candidate[0];
-          var name = candidate[1];
-          var voteCount = candidate[2];
+      info.empty();
+      var data="Length:"+l;
+      info.append(data);
 
-          // Render candidate Result
-          var candidateTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + voteCount + "</td></tr>"
-          candidatesResults.append(candidateTemplate);
-        });
-      }
+
 
       loader.hide();
       content.show();

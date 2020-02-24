@@ -16,7 +16,9 @@ contract donations {
   }
   uint length;
   donor[] public donorArray;
-
+  constructor() public{
+    length=0;
+  }
 
   /**In Solidity, functions are public by default. This means anyone (or any other contract) can call your contract's function and execute its code.
   Obviously this isn't always desirable, and can make your contract vulnerable to attacks.
@@ -28,7 +30,7 @@ contract donations {
     //Note: Memory keyword denotes call by value for String
     uint did = _generateRandomID(_donor);
     uint oid = _generateRandomID(_organ);
-    
+
     length = donorArray.push(donor(_donor, did, oid,_organ,_bg,_status, msg.sender))- 1;
     string memory msg = "Donor has been succesfully created.";
     emit createDonor(_donor, did, msg);
