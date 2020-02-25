@@ -25,7 +25,7 @@ contract donations {
   Thus it's good practice to mark your functions as private by default, and then only make public the
   functions you want to expose to the world.**/
 
-  function _initDonor(string memory _donor, string memory _organ, string memory _bg , uint _status) private
+  function _initDonor(string memory _donor, string memory _organ, string memory _bg , uint _status) public
   {
     //Note: Memory keyword denotes call by value for String
     uint did = _generateRandomID(_donor);

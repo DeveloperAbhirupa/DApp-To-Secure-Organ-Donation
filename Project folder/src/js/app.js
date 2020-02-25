@@ -1,3 +1,96 @@
+abi=[
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "name",
+        "type": "string"
+      },
+      {
+        "indexed": false,
+        "internalType": "uint256",
+        "name": "did",
+        "type": "uint256"
+      },
+      {
+        "indexed": false,
+        "internalType": "string",
+        "name": "msg",
+        "type": "string"
+      }
+    ],
+    "name": "createDonor",
+    "type": "event"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "internalType": "uint256",
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "donorArray",
+    "outputs": [
+      {
+        "internalType": "string",
+        "name": "donr",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "donor_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "uint256",
+        "name": "organ_id",
+        "type": "uint256"
+      },
+      {
+        "internalType": "string",
+        "name": "organ",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "bg",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "status",
+        "type": "uint256"
+      },
+      {
+        "internalType": "address",
+        "name": "hosp_id",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
+
+
+
+
+//fetch data from frontend
+
+
+var cryptoZombies
+
 App = {
   web3Provider: null,
   contracts: {},
@@ -23,7 +116,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
   },
 
   initContract: function() {
-    $.getJSON("donate.json", function(donations) {    //----------------------> NOTE THIS PART CHANGED!!!
+    $.getJSON("donations.json", function(donations) {    //----------------------> NOTE THIS PART CHANGED!!!
       // Instantiate a new truffle contract from the artifact
       App.contracts.donations = TruffleContract(donations);
       // Connect provider to interact with contract
@@ -59,11 +152,36 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
       info.empty();
       var data="Length:"+l;
       info.append(data);
-
-
-
       loader.hide();
       content.show();
+
+
+      //Code goes in here
+      //Now we are going to create transactions, for this we require a transaction object
+      var contractAddress = "0xAC6aE32a28e98eF7726212B9962bc7F4d51b4b2a";
+      txobj = new web3.eth.contract(abi, contractAddress);
+      console.log(txobj);
+
+      //Send data to smart contract on click
+      $("#submitbtn"). click(function(){
+        console.log("Button clicked");
+        var name = $("#name").val();
+        var organ = $("#organ").val();
+        var bg = $("#bg").val();
+        var status = $("#status").val();
+        console.log(txobj);
+        txobj.methods._initDonor(name, organ, bg ,status).send();
+        //txobj.methods
+      }
+
+      );
+      //Code ends
+
+
+
+
+
+
     }).catch(function(error) {
       console.warn(error);
     });

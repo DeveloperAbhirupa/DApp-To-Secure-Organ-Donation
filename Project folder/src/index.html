@@ -17,29 +17,27 @@
           <h1 class="text-center"><br>Enter Patient Data</h1>
           <hr/>
           <br/>
-          <div id="loader">
-            <p class="text-center">Loading...</p>
-          </div>
-          <div id="content" style="display: none;">
+
+          <div id="content" >
             <div class="container">
                   <div class="row justify-content-start" style="padding-top:10px;">
                     <label>Donor Name</label>
-                    <input class="form-control"></input>
+                    <input class="form-control" type="text" id="name"></input>
                   </div>
                   <div class="row justify-content-start" style="padding-top:10px;">
                     <label>Organ Type</label>
-                    <input class="form-control"></input>
+                    <input class="form-control" type="text" id="organ"></input>
                   </div>
                   <div class="row justify-content-start" style="padding-top:10px;">
                     <label>Blood Group</label>
-                    <input class="form-control"></input>
+                    <input class="form-control" type="text" id="bg"></input>
                   </div>
                   <div class="row justify-content-start" style="padding-top:10px;">
                     <label>Status Code:</label>
-                    <input class="form-control"></input>
+                    <input class="form-control" type="text" id="status"></input>
                   </div>
                   <div class="row justify-content-start" style="padding-top:10px;">
-                      <button class="btn btn-primary">Create Entry</button>
+                      <button class="btn btn-primary" id="submitbtn">Create Entry</button>
                   </div>
                 </div>
             <hr/>
@@ -57,5 +55,6 @@
     <script src="js/web3.min.js"></script>
     <script src="js/truffle-contract.js"></script>
     <script src="js/app.js"></script>
+    
   </body>
 </html>
