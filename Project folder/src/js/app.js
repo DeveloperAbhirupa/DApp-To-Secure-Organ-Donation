@@ -80,16 +80,64 @@ abi=[
     "payable": false,
     "stateMutability": "view",
     "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_fName",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_age",
+        "type": "uint256"
+      }
+    ],
+    "name": "setInstructor",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "internalType": "string",
+        "name": "_donor",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_organ",
+        "type": "string"
+      },
+      {
+        "internalType": "string",
+        "name": "_bg",
+        "type": "string"
+      },
+      {
+        "internalType": "uint256",
+        "name": "_status",
+        "type": "uint256"
+      }
+    ],
+    "name": "initDonor",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
   }
 ]
-
 
 
 
 //fetch data from frontend
 
 
-var cryptoZombies
 
 App = {
   web3Provider: null,
@@ -137,7 +185,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
     // Load account data
     web3.eth.getCoinbase(function(err, account) {
       if (err === null) {
-        App.account = account;
+        App.account = "0x841d7Ae343694941Fb68B9b8dC3EB0dF289FD8cC";
         $("#accountAddress").html("Your Account: " + account);
       }
     });
@@ -158,9 +206,24 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
 
       //Code goes in here
       //Now we are going to create transactions, for this we require a transaction object
-      var contractAddress = "0xAC6aE32a28e98eF7726212B9962bc7F4d51b4b2a";
-      txobj = new web3.eth.contract(abi, contractAddress);
-      console.log(txobj);
+      web3.eth.defaultAccount = web3.eth.accounts[1];
+      balance = web3.eth.getBalance("0x841d7Ae343694941Fb68B9b8dC3EB0dF289FD8cC");
+      console.log("Balance:"+balance)
+
+
+      var contractaddress = "0x0f42c50a89162AB87716e2c7B49a50e4E8AcBde3";
+      var myAbi = web3.eth.contract(abi);
+      var myfunction = myAbi.at(contractaddress);
+      console.log(myfunction)
+
+
+
+
+
+
+      // Instantiate myContract
+
+
 
       //Send data to smart contract on click
       $("#submitbtn"). click(function(){
@@ -169,12 +232,12 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
         var organ = $("#organ").val();
         var bg = $("#bg").val();
         var status = $("#status").val();
-        console.log(txobj);
-        txobj.methods._initDonor(name, organ, bg ,status).send();
-        //txobj.methods
+        donationsInstance.initDonor(name,organ,bg,status);
+        alert("new block has been created");
       }
 
       );
+      console.log("Still works")
       //Code ends
 
 
