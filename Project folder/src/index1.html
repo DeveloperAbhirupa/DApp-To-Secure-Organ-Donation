@@ -1,0 +1,61 @@
+
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>HTML Result</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
+          integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <style>
+    body  {
+      background-image: url("images/b1.png");
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+    }
+    </style>
+</head>
+<body>
+    <div class="container" style="width: 650px;">
+      <div class="row">
+        <div class="col-lg-12">
+          <h1 class="text-center"><br>Enter Search Details</h1>
+          <hr/>
+          <br/>
+
+          <div id="content" >
+            <div class="container">
+
+                  <div class="row justify-content-start" style="padding-top:10px;">
+                    <label>Organ Type For Receiver</label>
+                    <input class="form-control" type="text" id="organ"></input>
+                  </div>
+                  <div class="row justify-content-start" style="padding-top:10px;">
+                    <label>Blood Group</label>
+                    <input class="form-control" type="text" id="bg"></input>
+                  </div>
+
+                  <div class="row justify-content-start" style="padding-top:10px;">
+                      <button class="btn btn-primary" id="submitbtn">Search for Organs</button>
+                  </div>
+                </div>
+            <hr/>
+            <p id="accountAddress" class="text-center"></p>
+            <p id="info" class="text-center"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/web3.min.js"></script>
+    <script src="js/truffle-contract.js"></script>
+    <script src="js/app.js"></script>
+
+  </body>
+</html>
