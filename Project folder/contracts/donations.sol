@@ -8,20 +8,20 @@ contract donations {
     string organ; //Type of organ
     string bg; //Donor blood group
     uint status; //(not yet donted-0/only donated-1/implanted-2)
-    address hosp_id;  //random generated hashcode (String unique id)
+    uint hosp_id;  //random generated hashcode (String unique id)
   }
   uint length;
   donor[] public donorArray;
   constructor() public{
     length=0;
   }
-  function initDonor(string memory _donor, string memory _organ, string memory _bg , uint _status) public
+  function initDonor(string memory _donor, uint _did ,string memory _organ, uint _oid, string memory _bg , uint _hosp, uint _status) public
   {
     //Note: Memory keyword denotes call by value for String
-    uint did = _generateRandomID(_donor);
-    uint oid = _generateRandomID(_organ);
+    //uint did = _generateRandomID(_donor);
+    //uint oid = _generateRandomID(_organ);
 
-    length = donorArray.push(donor(_donor, did, oid,_organ,_bg,_status, msg.sender))- 1;
+    length = donorArray.push(donor(_donor, _did, _oid,_organ,_bg,_status, _hosp))- 1;
     string memory msg = "Donor has been succesfully created.";
     //emit createDonor(_donor, did, msg);
 

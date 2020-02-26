@@ -210,40 +210,27 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
       balance = web3.eth.getBalance("0x841d7Ae343694941Fb68B9b8dC3EB0dF289FD8cC");
       console.log("Balance:"+balance)
 
-
+      /**
       var contractaddress = "0x0f42c50a89162AB87716e2c7B49a50e4E8AcBde3";
       var myAbi = web3.eth.contract(abi);
       var myfunction = myAbi.at(contractaddress);
-      console.log(myfunction)
+      console.log(myfunction) **/
+      var filter = web3.eth.filter({address: "0xYOURADDRESS"});
+
+      filter.watch(function(error, result){
+        if (!error)
+        console.log("any"+result);
+        else {
+          console.log(error)
+        }
+      });
 
 
 
 
 
 
-      // Instantiate myContract
 
-
-
-      //Send data to smart contract on click
-      $("#submitbtn"). click(function(){
-        console.log("Button clicked");
-        var min=20000;
-        var max=99999;
-        var name = $("#name").val();
-        var did=Math.random()*(max-min)+min;
-        var organ = $("#organ").val();
-        var oid=Math.random()*(max-min)+min;
-        var bg = $("#bg").val();
-        var hosp = $("#hospital").val();
-        var status = $("#status").val();
-        donationsInstance.initDonor(name,did,organ,oid,bg,hosp,status);
-        alert("New Block created. Transaction Entered.");
-        location.reload(true);
-      }
-
-      );
-      console.log("Still works")
       //Code ends
 
 
