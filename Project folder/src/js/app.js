@@ -238,7 +238,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
         var hosp = $("#hospital").val();
         var status = $("#status").val();
         donationsInstance.initDonor(name,did,organ,oid,bg,hosp,status);
-        alert("New Block created. Transaction Entered.");
+        alert("New Block created. Transaction Entered."+"\nDonor ID:"+did);
         location.reload(true);
       }
 
