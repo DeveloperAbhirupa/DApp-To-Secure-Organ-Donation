@@ -12,7 +12,7 @@ Download all extensions- Extension Requirements.txt will be put up after project
 Migrate to folder: Run command:
 
 >>>truffle migrate
->>>truffle console
->>>donations.deployed().then(function(instance) { app = instance })
->>>app.<attribute> to get value
+npm run dev
+ 
+*Clone js driver for bigchaindb
 
