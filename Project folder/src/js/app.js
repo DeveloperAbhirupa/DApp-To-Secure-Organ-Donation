@@ -217,6 +217,13 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
       console.log(myfunction)
 
 
+      //Instantiate key-pair for bigchain db assets
+      const bip39 = require('bip39')
+      const seed = bip39.mnemonicToSeed('seedPhrase').slice(0,32)
+      const donor = new BigchainDB.Ed25519Keypair(seed)
+      //End of instantiation
+
+
 
 
 
@@ -228,6 +235,8 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
       //Send data to smart contract on click
       $("#submitbtn"). click(function(){
         console.log("Button clicked");
+
+        //Create an asset for bigchaindb
         var min=20000;
         var max=99999;
         var name = $("#name").val();
@@ -238,12 +247,54 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
         var hosp = $("#hospital").val();
         var status = $("#status").val();
         donationsInstance.initDonor(name,did,organ,oid,bg,hosp,status);
-        alert("New Block created. Transaction Entered."+"\nDonor ID:"+did);
+
+        //Create const here
+        const asset_organ = {
+            A_name:name,
+            A_did:did,
+            A_organ:organ,
+            A_oid:oid,
+            A_bg:bg,
+            A_hosp:hosp,
+            A_status:status
+          }
+        //Const asset created.......
+
+        //alert("New Block created. Transaction Entered."+"\nDonor ID:"+did);
         location.reload(true);
       }
 
       );
       console.log("Still works")
+
+      //Create a transaction on BigchainDB
+      function createAsset() {
+        // Construct a transaction payload
+        const txCreatePaint = BigchainDB.Transaction.makeCreateTransaction(
+          // Asset field
+          {
+              asset_organ,
+          },
+          // Metadata field, contains information about the transaction itself
+          // (can be `null` if not needed)
+          {
+            'null'
+          },
+          // Output. For this case we create a simple Ed25519 condition
+          [BigchainDB.Transaction.makeOutput(BigchainDB.Transaction.makeEd25519Condition(donor.publicKey))],
+          // Issuers
+          donor.publicKey
+        )
+        // The owner of the painting signs the transaction
+        const txSigned = BigchainDB.Transaction.signTransaction(txCreatePaint,donor.privateKey)
+        // Send the transaction off to BigchainDB
+        conn.postTransactionCommit(txSigned).then(res => {
+            document.body.innerHTML += '<h3>Transaction created</h3>';
+            document.body.innerHTML += txSigned.id
+            // txSigned.id corresponds to the asset id of the painting
+        })
+      }     
+
       //Code ends
 
 
