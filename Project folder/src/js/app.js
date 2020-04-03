@@ -1,3 +1,8 @@
+const BigchainDB = require('bigchaindb-driver')
+
+const API_PATH = 'https://test.bigchaindb.com/api/v1/'
+const conn = new BigchainDB.Connection(API_PATH)
+
 abi=[
   {
     "inputs": [],
@@ -136,9 +141,6 @@ abi=[
 
 
 //fetch data from frontend
-
-
-
 App = {
   web3Provider: null,
   contracts: {},
@@ -217,15 +219,6 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
       console.log(myfunction)
 
 
-      //Instantiate key-pair for bigchain db assets
-      const bip39 = require('bip39')
-      const seed = bip39.mnemonicToSeed('seedPhrase').slice(0,32)
-      const donor = new BigchainDB.Ed25519Keypair(seed)
-      //End of instantiation
-
-
-
-
 
 
       // Instantiate myContract
@@ -248,7 +241,7 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
         var status = $("#status").val();
         donationsInstance.initDonor(name,did,organ,oid,bg,hosp,status);
 
-        //Create const here
+        /**Create const here
         const asset_organ = {
             A_name:name,
             A_did:did,
@@ -258,9 +251,9 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
             A_hosp:hosp,
             A_status:status
           }
-        //Const asset created.......
+        //Const asset created.......**/
 
-        //alert("New Block created. Transaction Entered."+"\nDonor ID:"+did);
+        alert("New Block created. Transaction Entered."+"\nDonor ID:"+did);
         location.reload(true);
       }
 
@@ -275,10 +268,14 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
           {
               asset_organ,
           },
-          // Metadata field, contains information about the transaction itself
-          // (can be `null` if not needed)
+          // Metadata field, contains information about the transaction itself (can be `null` if not needed)
           {
-            'null'
+            datetime: new Date().toString(),
+              location: 'India',
+              value: {
+                  value_eur: 'null',
+                  value_btc: 'null',
+              }
           },
           // Output. For this case we create a simple Ed25519 condition
           [BigchainDB.Transaction.makeOutput(BigchainDB.Transaction.makeEd25519Condition(donor.publicKey))],
@@ -289,11 +286,13 @@ to talk to the blockchain. We configure web3 inside the "initWeb3" function.**/
         const txSigned = BigchainDB.Transaction.signTransaction(txCreatePaint,donor.privateKey)
         // Send the transaction off to BigchainDB
         conn.postTransactionCommit(txSigned).then(res => {
+            txid = assetCreateTxSigned.id
+            console.log("Transaction id:",txid)
             document.body.innerHTML += '<h3>Transaction created</h3>';
             document.body.innerHTML += txSigned.id
             // txSigned.id corresponds to the asset id of the painting
         })
-      }     
+      }
 
       //Code ends
 
