@@ -13,6 +13,7 @@
     "lite-server": "^2.5.4"
   },
   "dependencies": {
-    "bigchaindb-driver": "^4.1.2"
+    "bigchaindb-driver": "^4.1.2",
+    "jquery": "^3.4.1"
   }
 }
